@@ -22,6 +22,10 @@ layout: base
     </div>
 </div>
 
+<div>
+    <button class="SignupButton" onclick="go_signup()">Don't have an account? Sign up.</button>
+</div>
+
 <script>
     function person_login() {
         var myHeaders = new Headers();
@@ -74,6 +78,10 @@ layout: base
         })
         .catch(error => console.error('Error during login:', error));
 
+    }
+
+    function go_signup() {
+        window.location.replace("/BinaryWizards/signup/");
     }
 </script>
 </body>
