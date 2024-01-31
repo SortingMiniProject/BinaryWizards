@@ -1,0 +1,79 @@
+---
+comments: true
+title: Login
+permalink: login.html
+layout: base
+---
+
+<head>Login</head>
+<body>
+    <div class="login-container">
+    <div class="card">
+        <h3>Login</h3>
+        <div class="Email">
+            <input id="Emaillogin" class="input" placeholder="Email">
+        </div>
+        <div class="Password">
+            <input id="PasswordLogin" class="input" placeholder="Password">
+        </div>
+        <div class="Buttons">
+            <button class="LoginB" onclick="person_login()">Login</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function person_login() {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+            "email": document.getElementById("Emaillogin").value,
+            "password": document.getElementById("PasswordLogin").value
+
+            
+        });
+        console.log(raw);
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            credentials: 'include',  // 
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("http://localhost:8085/authenticate", requestOptions)
+        .then(response => {
+            if (!response.ok) {
+                const errorMsg = 'Login error: ' + response.status;
+                console.log(errorMsg);
+
+                switch (response.status) {
+                    case 401:
+                        alert(" 401 error you have typed in wrong user or pass");
+                        break;
+                    case 403:
+                        alert("Sorry you cant do that ");
+                        break;
+                    case 404:
+                        alert("We cant Seem To Locate that in our system try again?");
+                        break;
+                    
+                    default:
+                        alert("Login failed. Please try again later.");
+                }
+
+                return Promise.reject('Login failed');
+            }
+            return response.text()
+        })
+        .then(result => {
+            console.log(result);
+            window.location.replace("/BinaryWizards/about/");
+        })
+        .catch(error => console.error('Error during login:', error));
+
+    }
+</script>
+</body>
