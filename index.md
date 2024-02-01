@@ -2,7 +2,7 @@
 layout: home
 search_exclude: true
 ---
-A modified blog for CSA Based on Fastpages- Tirth Thakkar & Haseeb Beg   
+Our Project focused on making Lessons more fun and interactive by including games that can help students to retain the information they learn   
 
 
 
