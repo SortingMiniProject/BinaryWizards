@@ -5,17 +5,47 @@ title: Binary
 ---
 
 <head></head>
+<style>
+    .box {
+        width: 100px;
+        height: 100px;
+        background-color: #78c9ae;
+        margin-right: 10px;
+        text-align: center;
+        line-height: 100px;
+        float: left;
+    }
+</style>
 <body>
     <label id="binaryNum"></label>
+    <div id="container"></div>
     <script>
-        fetch("http://localhost:8085/game/binary", {method: 'GET'})
+        const container = document.getElementById("container");
+        for (let i = 0; i < 8; i++) {
+            const box = document.createElement("div");
+            box.classList.add("box");
+            box.textContent = "0";
+            container.appendChild(box);
+        }
+        function toggleNumber(box) {
+            if (box.textContent === "0") {
+                box.textContent = "1";
+            } else {
+                box.textContent = "0";
+            }
+        }
+        fetch("http://localhost:8085/game/binary", {method: 'GET', headers: {'Content-Type':'application/json'}})
         .then(response => {
             if (!response.ok) {
                 return response.text().then(errorMsg => {
                     alert('Error: ' + errorMsg);
                 });
             }
-            console.log()
-        });
+            return response.json();
+        })
+        .then(data => {
+            console.log(JSON.stringify(data))
+            document.getElementById("binaryNum").innerHTML = "Your number is: " + data.numbers[1]
+        })
     </script>
 </body>
