@@ -4,7 +4,6 @@ permalink: /binary/
 title: Binary
 ---
 
-{% include binaryfile.html %}
 <head></head>
 <style>
     .box {
@@ -16,10 +15,16 @@ title: Binary
         line-height: 100px;
         float: left;
     }
+    .container {
+        margin-bottom: 50px;
+    }
 </style>
 <body>
     <label id="binaryNum"></label>
     <div id="container"></div>
+    <div class = "table">
+        {% include binaryfile.html %}
+    </div>
     <script>
         const container = document.getElementById("container");
         for (let i = 0; i < 8; i++) {
