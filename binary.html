@@ -1,0 +1,21 @@
+---
+layout: base
+permalink: /binary/
+title: Binary
+---
+
+<head></head>
+<body>
+    <label id="binaryNum"></label>
+    <script>
+        fetch("http://localhost:8085/game/binary", {method: 'GET'})
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(errorMsg => {
+                    alert('Error: ' + errorMsg);
+                });
+            }
+            console.log()
+        });
+    </script>
+</body>
