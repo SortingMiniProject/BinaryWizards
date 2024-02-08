@@ -25,6 +25,7 @@ title: Binary
     <div id="container"></div>
     <div class = "table">
         <!-- {% include binaryfile.html %} -->
+        {% include mariosprite.html %}
     </div>
     <button id="check">Check my answer!</button>
     <label id="rightorwrong"></label>
@@ -74,7 +75,7 @@ title: Binary
         }
         function newNumber() {
             fetch("http://localhost:8085/game/binary", {method: 'GET', headers: {'Content-Type':'application/json'}})
-            .then(response => {
+            .then(response => { 
                 if (!response.ok) {
                     return response.text().then(errorMsg => {
                         alert('Error: ' + errorMsg);
