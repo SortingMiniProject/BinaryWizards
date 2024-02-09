@@ -14,9 +14,16 @@ title: Binary
         text-align: center;
         line-height: 100px;
         float: left;
+        transition: background-color 0.3s ease;
+    }
+    .box:hover {
+        background-color: #5a9c90;
     }
     .container {
         margin-bottom: 50px;
+    }
+    .binaryNum {
+        color: #5a9c90;
     }
 </style>
 <body>
@@ -74,7 +81,7 @@ title: Binary
             }
         }
         function newNumber() {
-            fetch("http://localhost:8085/game/binary", {method: 'GET', headers: {'Content-Type':'application/json'}})
+            fetch("http://localhost:8098/game/binary", {method: 'GET', headers: {'Content-Type':'application/json'}})
             .then(response => { 
                 if (!response.ok) {
                     return response.text().then(errorMsg => {
