@@ -37,6 +37,26 @@ title: Binary
     <button id="check">Check my answer!</button>
     <label id="rightorwrong"></label>
     <script>
+        var assets = {
+            players: {
+                mario: {
+                  src: "/images/platformer/sprites/mario.png",
+                  width: 256,
+                  height: 256,
+                  w: { row: 10, frames: 15 },
+                  wa: { row: 11, frames: 15 },
+                  wd: { row: 10, frames: 15 },
+                  a: { row: 3, frames: 7, idleFrame: { column: 7, frames: 0 } },
+                  s: {  },
+                  d: { row: 2, frames: 7, idleFrame: { column: 7, frames: 0 } }
+                }
+            }
+        };
+        Object.keys(assets).forEach(category => {
+            Object.keys(assets[category]).forEach(assetName => {
+              assets[category][assetName]['file'] = "{{site.baseurl}}" + assets[category][assetName].src;
+            });
+          });
         var score = 0;
         var answer = 0;
         var lives = 3;
