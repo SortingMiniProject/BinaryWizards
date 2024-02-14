@@ -1,0 +1,55 @@
+---
+comments: true
+title: Games
+permalink: games.html
+layout: base
+---
+
+<head class="account">
+    <label>Account Name</label>
+</head>
+<style>
+    .account {
+        height: 100px;
+        width: 300px;
+        padding: 20px;
+        border-radius: 100px;
+        background-color: blue;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .binary {
+        width: 100px;
+        height: 100px;
+        background-color: #f7f7f7;
+        margin-right: 10px;
+        text-align: center;
+        line-height: 100px;
+        float: left;
+        transition: background-color 0.3s ease;
+    }
+
+    .binary button:hover {
+        text-decoration: underline;
+    }
+</style>
+<body>
+    <div class="binary">
+        <button class="binary" onclick="gobinary()">Binary!</button>
+    </div>
+    <script>
+        function gobinary() {
+            window.location.replace("/BinaryWizards/binary2/");
+        }
+    </script>
+</body>
