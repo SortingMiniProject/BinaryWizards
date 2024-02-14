@@ -1,9 +1,8 @@
 ---
 layout: base
+title: binary2
 permalink: /binary2/
-title: Binary2
 ---
-
 <head></head>
 <style>
     .box {
@@ -66,6 +65,19 @@ title: Binary2
             width: 100px;
             height: auto;
         }
+        .sprite-container {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            overflow: hidden;
+        }
+        .sprite {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: auto;
+        }
     </style>
     </head>
     <body>
@@ -118,3 +130,68 @@ title: Binary2
         newNumber();
     </script>
     
+</head>
+<body>
+
+<div class="image-row">
+    <img src="{{site.baseurl}}/images/zero.png" alt="Image" class="image" onclick="changeImage(this)">
+    <img src="{{site.baseurl}}/images/zero.png" alt="Image" class="image" onclick="changeImage(this)">
+    <img src="{{site.baseurl}}/images/zero.png" alt="Image" class="image" onclick="changeImage(this)">
+    <img src="{{site.baseurl}}/images/zero.png" alt="Image" class="image" onclick="changeImage(this)">
+    <img src="{{site.baseurl}}/images/zero.png" alt="Image" class="image" onclick="changeImage(this)">
+    <img src="{{site.baseurl}}/images/zero.png" alt="Image" class="image" onclick="changeImage(this)">
+    <img src="{{site.baseurl}}/images/zero.png" alt="Image" class="image" onclick="changeImage(this)">
+    <img src="{{site.baseurl}}/images/zero.png" alt="Image" class="image" onclick="changeImage(this)">
+</div>
+
+<div class="sprite-container">
+    <img src="{{ site.baseurl }}/images/logo.png" alt="Sprite" class="sprite" id="sprite">
+</div>
+
+<script>
+    const sprite = document.getElementById('sprite');
+
+    // Define the step size for movement
+    const stepSize = 10;
+
+    // Function to move the sprite
+// Function to move the sprite
+function moveSprite(direction) {
+    const rect = sprite.getBoundingClientRect();
+    let newX = rect.left;
+    let newY = rect.top;
+
+    switch (direction) {
+        case 'w':
+            newY -= stepSize;
+            break;
+        case 'd':
+            newX += stepSize;
+            break;
+        case 's':
+            newY += stepSize;
+            break;
+        case 'a':
+            newX -= stepSize;
+            break;
+    }
+
+    // Log the new position for debugging
+    console.log('New X:', newX, 'New Y:', newY);
+
+    // Check boundaries to prevent the sprite from going out of the container
+    newX = Math.max(newX, 0);
+    newX = Math.min(newX, window.innerWidth - rect.width);
+    newY = Math.max(newY, 0);
+    newY = Math.min(newY, window.innerHeight - rect.height);
+
+    // Log the adjusted position for debugging
+    console.log('Adjusted X:', newX, 'Adjusted Y:', newY);
+
+    // Set new position relative to current position
+    sprite.style.transform = `translate(${newX}px, ${newY}px)`;
+}
+
+</script>
+</body>
+</html>
