@@ -1,0 +1,49 @@
+---
+layout: base
+permalink: /leaderboard/
+title: Leaderboard
+---
+
+<head></head>
+<body>
+    <div>
+        <table id="table">
+            <thead>
+                <tr>
+                    <th colspan=3 id="title">Binary Game Leaderboard</th>
+                </tr>
+            </thead>
+            <tbody id="body">
+                <tr>
+                    <td>Number</td>
+                    <td>Name</td>
+                    <td>Score</td>
+                </tr>
+            </tbody>
+    </div>
+    <script>
+        let currentPage = 1;
+        const itemsPerPage = 100;
+        let totalData = [];
+        function renderPage(pageNumber) {
+            const startIndex = (pageNumber - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, totalData.length);
+            for (let i = startIndex; i < endIndex; i++) {
+                const row = document.createElement("tr");
+                const cell1 = document.createElement("td");
+                const cellText1 = document.createTextNode(i+1);
+                cell1.appendChild(cellText1);
+                row.appendChild(cell1);
+                const cell2 = document.createElement("td");
+                const cellText2 = document.createTextNode(totalData[i]);
+                cell2.appendChild(cellText2);
+                row.appendChild(cell2);
+                const cell3 = document.createElement("td");
+                const cellText3 = document.createTextNode(totalData[i]);
+                cell3.appendChild(cellText3);
+                row.appendChild(cell3);
+                body.appendChild(row);
+            }
+        }
+    </script>
+</body>

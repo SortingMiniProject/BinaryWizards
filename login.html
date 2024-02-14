@@ -178,8 +178,9 @@ layout: base
         })
         .then(result => {
             console.log(result);
+
             sessionStorage.setItem("username", document.getElementById("Emaillogin").value);
-            window.location.replace("/BinaryWizards/about/");
+            window.location.replace("/BinaryWizards/binary2/")
         })
         .catch(error => console.error('Error during login:', error));
 

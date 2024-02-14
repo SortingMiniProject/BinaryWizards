@@ -1,0 +1,93 @@
+---
+layout: base
+permalink: /binary/
+title: Binary
+---
+
+<head></head>
+<style>
+    .box {
+        width: 100px;
+        height: 100px;
+        background-color: #78c9ae;
+        margin-right: 10px;
+        text-align: center;
+        line-height: 100px;
+        float: left;
+    }
+    .container {
+        margin-bottom: 50px;
+    }
+</style>
+<body>
+    <label id="binaryNum"></label>
+    <label id="lives"></label>
+    <div id="container"></div>
+    <div class = "table">
+        <!-- {% include binaryfile.html %} -->
+    </div>
+    <button id="check">Check my answer!</button>
+    <label id="rightorwrong"></label>
+    <script>
+        var score = 0;
+        var answer = 0;
+        var lives = 3;
+        document.getElementById("lives").innerHTML = "Lives: " + lives;
+        const container = document.getElementById("container");
+        for (let i = 0; i < 8; i++) {
+            const box = document.createElement("div");
+            box.classList.add("box");
+            box.textContent = "0";
+            box.addEventListener("click", function() {
+                toggleNumber(box);
+            });
+            container.appendChild(box);
+        }
+        check.addEventListener("click", function() {
+             if(lives>0) {
+                var boxValues = "";
+                const boxes = document.querySelectorAll(".box");
+                boxes.forEach(box => {
+                    boxValues += box.textContent;
+                });
+                if (parseInt(boxValues)==answer) {
+                    document.getElementById("rightorwrong").innerHTML = "Correct!"
+                    newNumber();
+                    score+=10;
+                    console.log(score);
+                } else {
+                    document.getElementById("rightorwrong").innerHTML = "Incorrect. Try again."
+                    lives-=1;
+                    document.getElementById("lives").innerHTML = "Lives: " + lives;
+                }
+            }
+            if (lives==0) {
+                document.getElementById("rightorwrong").innerHTML = "Game over. your score is: " + score;
+            }
+        });
+        function toggleNumber(box) {
+            if (box.textContent === "0") {
+                box.textContent = "1";
+            } else {
+                box.textContent = "0";
+            }
+        }
+        function newNumber() {
+            fetch("http://localhost:8085/game/binary", {method: 'GET', headers: {'Content-Type':'application/json'}})
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(errorMsg => {
+                        alert('Error: ' + errorMsg);
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(JSON.stringify(data))
+                answer = data.numbers[0];
+                document.getElementById("binaryNum").innerHTML = "Your number is: " + data.numbers[1]
+            })
+        }
+        newNumber();
+    </script>
+</body>
