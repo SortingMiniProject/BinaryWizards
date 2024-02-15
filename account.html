@@ -1,0 +1,22 @@
+---
+comments: true
+title: My Account
+permalink: account.html
+layout: base
+---
+
+<head></head>
+<body>
+    <div>
+        <label id="accountName"></label>
+        <button id="logout" onclick="logout()">Logout</button>
+    </div>
+</body>
+<script>
+    username = sessionStorage.getItem("username")
+    document.getElementById("accountName").innerHTML = username;
+    function logout() {
+        sessionStorage.clear();
+        window.location.replace("/BinaryWizards/login/")
+    }
+</script>

@@ -6,6 +6,10 @@ title: Binary
 
 <head></head>
 <style>
+    .page-content {
+        background-image: url('/BinaryWizards/images/binary1.png');
+        background-color: #000000;
+    }
     .box {
         width: 100px;
         height: 100px;
@@ -22,13 +26,15 @@ title: Binary
     .container {
         margin-bottom: 50px;
     }
-    .binaryNum {
-        color: #5a9c90;
+    .numLabels {
+        background-color: black;
     }
 </style>
 <body>
-    <label id="binaryNum"></label>
-    <label id="lives"></label>
+    <div class="numLabels">
+        <label class="binaryNum" id="binaryNum"></label>
+        <label id="lives"></label>
+    </div>
     <div id="container"></div>
     <div class = "table">
         <!-- {% include binaryfile.html %} -->
@@ -91,6 +97,9 @@ title: Binary
             }
             if (lives==0) {
                 document.getElementById("rightorwrong").innerHTML = "Game over. your score is: " + score;
+                if (score>sessionStorage.getItem("binaryScore")) {
+                    sessionStorage.setItem("binaryScore", score);
+                }
             }
         });
         function toggleNumber(box) {

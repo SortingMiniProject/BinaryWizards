@@ -46,21 +46,26 @@ layout: base
         text-decoration: underline;
     }
 
-    .binaryScore {
-        
-    }
 </style>
 <body>
     <div class="account">
-        <label>Welcome!</label>
+        <label id="welcomeMessage"></label>
+        <button class="accountButton" onclick="accountPage()">My Account</button>
     </div>
     <div class="binary">
         <button class="binaryButton" onclick="gobinary()">Binary!</button>
-        <label class="binaryScore">Your high score: 0</label>
+        <label class="binaryScore" id="binaryScore"></label>
     </div>
     <script>
+        username = sessionStorage.getItem("username")
+        binaryScore = sessionStorage.getItem("binaryScore");
+        document.getElementById("welcomeMessage").innerHTML = "Welcome, " + username + "!"
+        document.getElementById("binaryScore").innerHTML = "Your high score: " + binaryScore;
         function gobinary() {
             window.location.replace("/BinaryWizards/binary2/");
+        }
+        function accountPage() {
+            window.location.replace("/BinaryWizards/account/");
         }
     </script>
 </body>
