@@ -5,16 +5,22 @@ permalink: games.html
 layout: base
 ---
 
-<head class="account">
-    <label>Account Name</label>
-</head>
+<head></head>
 <style>
+    .page-content {
+        background-image: url('/BinaryWizards/images/logo.png');
+        background-repeat: no-repeat;
+        background-color: #000000;
+    }
+
     .account {
         height: 100px;
-        width: 300px;
+        width: 1200px;
         padding: 20px;
         border-radius: 100px;
-        background-color: blue;
+        border-color: rgb(255, 255, 255);
+        background-color: rgb(96, 94, 112);
+        text-align: left;
     }
 
     body {
@@ -29,23 +35,28 @@ layout: base
     }
 
     .binary {
-        width: 100px;
+        width: 1000px;
         height: 100px;
-        background-color: #f7f7f7;
-        margin-right: 10px;
+        margin: 0;
         text-align: center;
-        line-height: 100px;
-        float: left;
-        transition: background-color 0.3s ease;
+        background-image: url('/BinaryWizards/images/binary1.png');
     }
 
-    .binary button:hover {
+    .binaryButton:hover {
         text-decoration: underline;
+    }
+
+    .binaryScore {
+        
     }
 </style>
 <body>
+    <div class="account">
+        <label>Welcome!</label>
+    </div>
     <div class="binary">
-        <button class="binary" onclick="gobinary()">Binary!</button>
+        <button class="binaryButton" onclick="gobinary()">Binary!</button>
+        <label class="binaryScore">Your high score: 0</label>
     </div>
     <script>
         function gobinary() {
