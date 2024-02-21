@@ -1,13 +1,10 @@
 import GameEnv from './GameEnv.js';
 import Character from './Character.js';
 import GameControl from './GameControl.js';
-import playJump from './Audio1.js';
-import playPlayerDeath from './Audio2.js';
-import Socket from './Multiplayer.js';
 
 /**
  * @class Player class
- * @description Player.js key objective is to eent the user-controlled character in the game.   
+ * @description Player.js key objective is to sent the user-controlled character in the game.   
  * 
  * The Player class extends the Character class, which in turn extends the GameObject class.
  * Animations and events are activated by key presses, collisions, and gravity.
