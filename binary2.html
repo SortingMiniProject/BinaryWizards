@@ -1,0 +1,197 @@
+---
+layout: base
+title: binary2
+permalink: /binary2/
+---
+<head></head>
+<style>
+    .box {
+        width: 100px;
+        height: 100px;
+        background-color: #78c9ae;
+        margin-right: 10px;
+        text-align: center;
+        line-height: 100px;
+        float: left;
+        transition: background-color 0.3s ease;
+    }
+    .binaryNum {
+        color: #5a9c90;
+    }
+    .image-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+    .image {
+        width: 100px;
+        height: auto;
+        cursor: pointer;
+    }
+    .sprite-container {
+        position: relative;
+        width: 100%;
+        height: 100px;
+        overflow: hidden;
+    }
+    .sprite {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100px;
+        height: auto;
+        animation: run 1.5s steps(8) infinite;
+    }
+    @keyframes run {
+        from { transform: translateX(0); }
+        to { transform: translateX(-800px); }
+    }
+</style>
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <label id="binaryNum"></label>
+    <label id="lives"></label>
+    <title>Row of Images</title>
+    <style>
+        .image-row {
+            display: flex;
+            justify-content: space-between;
+        }
+        .image {
+            width: 100px;
+            height: auto;
+        }
+        .sprite-container {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            overflow: hidden;
+        }
+        .sprite {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: auto;
+        }
+    </style>
+    </head>
+    <body>
+    <div class="image-row">
+        <img src="{{site.baseurl}}/images/zero.png" alt="Image" class="image" onclick="changeImage(this)">
+        <img src="{{site.baseurl}}/images/zero.png" alt="Image" class="image" onclick="changeImage(this)">
+        <img src="{{site.baseurl}}/images/zero.png" alt="Image" class="image" onclick="changeImage(this)">
+        <img src="{{site.baseurl}}/images/zero.png" alt="Image" class="image" onclick="changeImage(this)">
+        <img src="{{site.baseurl}}/images/zero.png" alt="Image" class="image" onclick="changeImage(this)">
+        <img src="{{site.baseurl}}/images/zero.png" alt="Image" class="image" onclick="changeImage(this)">
+        <img src="{{site.baseurl}}/images/zero.png" alt="Image" class="image" onclick="changeImage(this)">
+        <img src="{{site.baseurl}}/images/zero.png" alt="Image" class="image" onclick="changeImage(this)">
+    </div>
+    <!-- <button>
+        Check My Answer!
+    </button> -->
+    <div class="sprite-container">
+        <img src="{{ site.baseurl }}/images/logo.png" alt="Sprite" class="sprite">
+    </div>
+    </body>
+    </html>
+    <script>
+        var score = 0;
+        var answer = 0;
+        var lives = 3;
+        document.getElementById("lives").innerHTML = "Lives: " + lives;
+        function changeImage(image) {
+            if (image.src.endsWith("{{ site.baseurl }}/images/zero.png")) {
+                image.src = "{{ site.baseurl }}/images/one.png";
+            } else {
+                image.src = "{{ site.baseurl }}/images/zero.png";
+            }
+        }
+        function newNumber() {
+            fetch("http://localhost:8098/game/binary", {method: 'GET', headers: {'Content-Type':'application/json'}})
+            .then(response => { 
+                if (!response.ok) {
+                    return response.text().then(errorMsg => {
+                        alert('Error: ' + errorMsg);
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(JSON.stringify(data))
+                answer = data.numbers[0];
+                document.getElementById("binaryNum").innerHTML = "Your number is: " + data.numbers[1]
+            })
+        }
+        newNumber();
+    </script>
+    
+</head>
+<body>
+
+<div class="image-row">
+    <img src="{{site.baseurl}}/images/zero.png" alt="Image" class="image" onclick="changeImage(this)">
+    <img src="{{site.baseurl}}/images/zero.png" alt="Image" class="image" onclick="changeImage(this)">
+    <img src="{{site.baseurl}}/images/zero.png" alt="Image" class="image" onclick="changeImage(this)">
+    <img src="{{site.baseurl}}/images/zero.png" alt="Image" class="image" onclick="changeImage(this)">
+    <img src="{{site.baseurl}}/images/zero.png" alt="Image" class="image" onclick="changeImage(this)">
+    <img src="{{site.baseurl}}/images/zero.png" alt="Image" class="image" onclick="changeImage(this)">
+    <img src="{{site.baseurl}}/images/zero.png" alt="Image" class="image" onclick="changeImage(this)">
+    <img src="{{site.baseurl}}/images/zero.png" alt="Image" class="image" onclick="changeImage(this)">
+</div>
+
+<div class="sprite-container">
+    <img src="{{ site.baseurl }}/images/logo.png" alt="Sprite" class="sprite" id="sprite">
+</div>
+
+<script>
+    const sprite = document.getElementById('sprite');
+
+    // Define the step size for movement
+    const stepSize = 10;
+
+    // Function to move the sprite
+// Function to move the sprite
+function moveSprite(direction) {
+    const rect = sprite.getBoundingClientRect();
+    let newX = rect.left;
+    let newY = rect.top;
+
+    switch (direction) {
+        case 'w':
+            newY -= stepSize;
+            break;
+        case 'd':
+            newX += stepSize;
+            break;
+        case 's':
+            newY += stepSize;
+            break;
+        case 'a':
+            newX -= stepSize;
+            break;
+    }
+
+    // Log the new position for debugging
+    console.log('New X:', newX, 'New Y:', newY);
+
+    // Check boundaries to prevent the sprite from going out of the container
+    newX = Math.max(newX, 0);
+    newX = Math.min(newX, window.innerWidth - rect.width);
+    newY = Math.max(newY, 0);
+    newY = Math.min(newY, window.innerHeight - rect.height);
+
+    // Log the adjusted position for debugging
+    console.log('Adjusted X:', newX, 'Adjusted Y:', newY);
+
+    // Set new position relative to current position
+    sprite.style.transform = `translate(${newX}px, ${newY}px)`;
+}
+
+</script>
+</body>
+</html>

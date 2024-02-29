@@ -1,0 +1,159 @@
+---
+layout: base
+title: quiz
+permalink: /quiz/
+---
+<head>
+    <title>Quiz</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #000000;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        #quiz-dropdown {
+            margin-bottom: 20px;
+        }
+        .question-box {
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .q {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: black;
+        }
+
+        .q:hover {
+            background-color: #f9f9f9;
+        }
+        .q.active {
+            background-color: rgb(129, 129, 129); /* Change background color for active state */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz</h1>
+        <!-- <div>
+            <select id="quiz-dropdown">
+                <option value="binary">Binary Quiz</option>
+                <option value="boolean">Boolean Quiz</option>
+                <option value="sass">SASS Quiz</option>
+                <option value="flask">Flask Quiz</option>
+            </select>
+        </div> -->
+        
+        <!-- Quiz question boxes will be dynamically added here -->
+        <label id="question"></label>
+        <div>
+            <div class="q">
+                <label id="q1"></label>
+            </div>
+            <div class="q">
+                <label id="q2"></label>
+            </div>
+            <div class="q">
+                <label id="q3"></label>
+            </div>
+            <div class="q">
+                <label id="q4"></label>
+            </div>
+        </div>
+        <button id="check" onclick="check()">Check my answer</button>
+    </div>
+    <label id="result"></label>
+
+    <script>
+        //var quizType = document.getElementById("quiz-dropdown").value;
+        var questions;
+        var qNum = 0;
+        var answer;
+        var score = 0;
+        var game = true;
+        function newQuestion() {
+            fetch("http://localhost:8098/questions/allqs", {method: 'GET', headers: {'Content-Type':'application/json'}})
+            .then(response => { 
+                if (!response.ok) {
+                    return response.text().then(errorMsg => {
+                        alert('Error: ' + errorMsg);
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                questions = data;
+                updateScreen();
+                //document.getElementById("question").innerHTML = data.mcqs[0];
+                //document.getElementById("q1").innerHTML = data.mcqs[1];
+                //document.getElementById("q2").innerHTML = data.mcqs[2];
+                //document.getElementById("q3").innerHTML = data.mcqs[3];
+                //document.getElementById("q4").innerHTML = data.mcqs[4];
+            })
+        }
+        function updateScreen() {
+            document.getElementById("question").innerHTML = questions.mcqs[qNum][0];
+            document.getElementById("q1").innerHTML = questions.mcqs[qNum][1];
+            document.getElementById("q2").innerHTML = questions.mcqs[qNum][2];
+            document.getElementById("q3").innerHTML = questions.mcqs[qNum][3];
+            document.getElementById("q4").innerHTML = questions.mcqs[qNum][4];
+            qElements = document.querySelectorAll(".q");
+        qElements.forEach(function(qElement) {
+            qElements.forEach(function(element) {
+                element.classList.remove('active');
+            });
+        });
+            
+        }
+        newQuestion();
+        qElements = document.querySelectorAll(".q");
+        qElements.forEach(function(qElement) {
+            qElement.addEventListener('click', function() {
+                qElements.forEach(function(element) {
+                    element.classList.remove('active');
+                });
+                this.classList.add('active');
+                answer = this.querySelector('label').innerHTML;
+            });
+        });
+        function check() {
+            var correct = questions.mcqs[qNum][5].split("Answer: ").pop();
+            console.log(correct);
+            if (game==true) {
+                if (answer==correct) {
+                    score+=1;
+                    qNum+=1;
+                    if (qNum>=10) {
+                        game = false;
+                        document.getElementById('result').innerHTML = "Congrats! You won."
+                    }
+                    updateScreen();
+                } else {
+                    game = false;
+                    document.getElementById('result').innerHTML = "You lost! Better luck next time."
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+---
+comments: true
+title: Games
+permalink: games.html
+layout: base
+---
+
+<head></head>
+<style>
+    .page-content {
+        background-image: url('/BinaryWizards/images/logo.png');
+        background-repeat: no-repeat;
+        background-color: #000000;
+    }
+
+    .account {
+        height: 100px;
+        width: 1200px;
+        padding: 20px;
+        border-radius: 100px;
+        border-color: rgb(255, 255, 255);
+        background-color: rgb(96, 94, 112);
+        text-align: left;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .binary {
+        width: 1000px;
+        height: 100px;
+        margin: 0;
+        text-align: center;
+        background-image: url('/BinaryWizards/images/binary1.png');
+    }
+
+    .binaryButton:hover {
+        text-decoration: underline;
+    }
+
+</style>
+<body>
+    <div class="account">
+        <label id="welcomeMessage"></label>
+        <button class="accountButton" onclick="accountPage()">My Account</button>
+    </div>
+    <div class="binary">
+        <button class="binaryButton" onclick="gobinary()">Binary!</button>
+        <label class="binaryScore" id="binaryScore"></label>
+    </div>
+    <script>
+        username = sessionStorage.getItem("username")
+        binaryScore = sessionStorage.getItem("binaryScore");
+        document.getElementById("welcomeMessage").innerHTML = "Welcome, " + username + "!"
+        document.getElementById("binaryScore").innerHTML = "Your high score: " + binaryScore;
+        function gobinary() {
+            window.location.replace("/BinaryWizards/binary2/");
+        }
+        function accountPage() {
+            window.location.replace("/BinaryWizards/account/");
+        }
+    </script>
+</body>
